@@ -5,8 +5,8 @@ import cors from 'cors';
 import clienteRouter from "./routers/cliente.router";
 import categoriasRouter from "./routers/categorias.router";
 import ordenesRouter from "./routers/ordenes.router";
-
-
+import repartidoresRouter from "./routers/repartidoresRouter";
+import productosRouter from "./routers/productosRouter";
 
 dotenv.config();
 const database:Database = new Database(); 
@@ -20,6 +20,8 @@ app.use(express.urlencoded({extended:true}));
 app.use('/categorias', categoriasRouter);
 app.use('/ordenes', ordenesRouter);
 app.use('/clientes', clienteRouter)
+app.use('/repartidores', repartidoresRouter);
+app.use('/productos', productosRouter);
 
 app.listen(port, () => {
 	console.log(`Servidor modificado https://localhost:${port}`);

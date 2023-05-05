@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface Categorias {
-    _id?: mongoose.Types.ObjectId,
+   // _id?: mongoose.Types.ObjectId,
     nombreCategoria: string;
     imgCategoria: string;
     producto :Array<productos>;

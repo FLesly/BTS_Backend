@@ -1,11 +1,17 @@
 import mongoose  from "mongoose";
-import { Categorias, productos } from "./categorias.model";
+import { Categorias } from "./categorias.model";
+import { Productos } from "./productoModel";
 
-const schema = new mongoose.Schema<Categorias>({
-  _id: mongoose.Types.ObjectId,
+mongoose.set('strictQuery', false);
+
+const schema = new mongoose.Schema({
+  //_id: mongoose.Types.ObjectId,
   nombreCategoria: String,
-    imgCategoria: String,
-    producto :Array<productos>
+  imgCategoria: String,
+  productos: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Productos'
+  }]
 });
 
 export const CategoriasSchema = mongoose.model('categorias',schema);
