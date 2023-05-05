@@ -12,15 +12,16 @@ export const getCategorias = async (req: Request, res: Response) => {
   };
   
 
-export const getCategoriaPorId = async (req: Request, res: Response) => {
-    try {
-        const categoria = await CategoriasSchema.findById(req.params.id);
-        res.send(categoria);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error al obtener la categoría");
-    }
-};
+  export const getCategoriaPorId = async (req: Request, res: Response) => {
+	try {
+	  const categoria = await CategoriasSchema.findById(req.params.id).populate('productos');
+	  res.send(categoria);
+	} catch (error) {
+	  console.error(error);
+	  res.status(500).send("Error al obtener la categoría");
+	}
+  };
+  
 
 
 export const agregarCategoria = async (req: Request, res: Response) => {
