@@ -4,11 +4,11 @@ import Productos from "../model/productoModel";
 // Controlador para agregar un nuevo repartidor
 const agregarProductos = async (req: Request, res: Response) => {
   try {
-    const { nombre, imgProducto, descripcion, precio } = req.body;
+    const { nombreProducto, imgProducto, descripcion, precio } = req.body;
 
     // Crear un nuevo documento de repartidor con los datos del formulario
     const nuevoProductos = new Productos({
-      nombre,
+      nombreProducto,
       imgProducto,
       descripcion,
         precio,
