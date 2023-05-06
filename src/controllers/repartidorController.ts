@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Repartidor from "../model/repartidorModel";
+import mongoose, { Types } from "mongoose";
 
 
 export const agregarRepartidor = async (req: Request, res: Response) => {
@@ -123,5 +124,4 @@ export const actualizarRepartidor = async (req: Request, res: Response) => {
     res.status(500).send("Error al actualizar repartidor");
   }
 };
-
 
