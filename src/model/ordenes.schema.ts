@@ -7,10 +7,8 @@ const schema = new mongoose.Schema<OrdenesPendientes>({
     nombreCliente: String,
     direccion : String,
     montoPagar: Number,
-    productos: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Productos'
-      }],
+    estadoOrden: String,
+    productos: Array<productos>,
  
 });
 

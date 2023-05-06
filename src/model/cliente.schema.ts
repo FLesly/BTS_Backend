@@ -1,5 +1,5 @@
 import mongoose  from "mongoose";
-import {  Cliente, ordenes } from "./cliente.model";
+import {  Cliente } from "./cliente.model";
 
 const schema = new mongoose.Schema<Cliente>({
     //_id: mongoose.Types.ObjectId,
@@ -7,7 +7,10 @@ const schema = new mongoose.Schema<Cliente>({
     apellidoCliente: String,
     correo: String,
     contraseña: String,
-    ordenes: Array<ordenes>
+    ordenes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Productos'
+      }]
 });
 
 export const ClienteSchema = mongoose.model('clientes',schema);

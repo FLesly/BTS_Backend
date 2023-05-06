@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ClienteSchema } from "../model/cliente.schema";
+import mongoose from "mongoose";
 
 export const postCliente = (req: Request, res: Response) => {
 	ClienteSchema.create(
@@ -36,4 +37,22 @@ export const getClientes = (req: Request, res: Response) => {
 			res.end();
 		})
 		.catch((error) => console.error(error));
+};
+
+export const addOrdenACliente = (req: Request, res: Response) => {
+  ClienteSchema.updateOne({_id: req.params.id},
+    {
+      $push: { 
+          ordenes: {
+            _id: new mongoose.Types.ObjectId(req.body.id)
+          } 
+      }
+    }
+  ).then(result => {
+    res.send({message: 'agregado', result});
+    res.end();
+  }).catch(error => {
+    res.send({message: 'Ocurrio un error', error});
+    res.end();
+  })
 };

@@ -7,6 +7,7 @@ export const addOrdenes = (req: Request, res: Response) => {
     nombreCliente: req.body.nombreCliente,
     direccion: req.body.direccion,
     montoPagar: req.body.montoPagar,
+    estadoOrden: req.body.estadoOrden,
     productos: req.body.productos
   })
     .then(updateResponse => {

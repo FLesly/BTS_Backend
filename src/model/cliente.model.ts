@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { productos } from "./ordenes.model";
 
 export interface Cliente {
-    _id?: mongoose.Types.ObjectId;
+    //_id?: mongoose.Types.ObjectId;
     nombreCliente:string;
     apellidoCliente: string;
     correo: string;
