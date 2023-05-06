@@ -2,7 +2,7 @@ import mongoose  from "mongoose";
 import {  Cliente, ordenes } from "./cliente.model";
 
 const schema = new mongoose.Schema<Cliente>({
-    _id: mongoose.Types.ObjectId,
+    //_id: mongoose.Types.ObjectId,
     nombreCliente: String,
     apellidoCliente: String,
     correo: String,
