@@ -6,6 +6,7 @@ export interface OrdenesPendientes {
     direccion: string;
     montoPagar: string;
     productos :Array<productos>;
+    
 }
 export interface productos {
     nombreProducto: string;

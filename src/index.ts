@@ -7,6 +7,9 @@ import categoriasRouter from "./routers/categorias.router";
 import ordenesRouter from "./routers/ordenes.router";
 import repartidoresRouter from "./routers/repartidoresRouter";
 import productosRouter from "./routers/productosRouter";
+import adminRouter from "./routers/adminRouter";
+import bodyParser from 'body-parser';
+
 
 dotenv.config();
 const database:Database = new Database(); 
@@ -22,6 +25,7 @@ app.use('/ordenes', ordenesRouter);
 app.use('/clientes', clienteRouter)
 app.use('/repartidores', repartidoresRouter);
 app.use('/productos', productosRouter);
+app.use('/admin', adminRouter);
 
 app.listen(port, () => {
 	console.log(`Servidor modificado https://localhost:${port}`);
