@@ -28,3 +28,12 @@ export const getOrdenes = async (req: Request, res: Response) => {
     res.status(500).send('Error al obtener los ordenes');
   }
 };
+
+export const getOrden = (req: Request, res: Response) => {
+	OrdenesSchema.findById(req.params.id)
+		.then((result) => {
+			res.send(result);
+			res.end();
+		})
+		.catch((error) => console.error(error));
+};
