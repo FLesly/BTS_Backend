@@ -1,31 +1,40 @@
 import { Request, Response } from "express";
 import Productos from "../model/productoModel";
+import ProductosSchema from "../model/productoModel";
+import { CategoriasSchema } from "../model/categorias.schema";
 
-// Controlador para agregar un nuevo repartidor
-const agregarProductos = async (req: Request, res: Response) => {
+
+export const agregarProductos = async (req: Request, res: Response) => {
   try {
     const { nombreProducto, imgProducto, descripcion, precio } = req.body;
+    const categoriaId = req.params.id;
 
-    // Crear un nuevo documento de repartidor con los datos del formulario
-    const nuevoProductos = new Productos({
-      nombreProducto,
-      imgProducto,
-      descripcion,
+    //Buscar la categoría por su ID
+    const categoria = await CategoriasSchema.findById(categoriaId);
+
+    if (categoria) {
+      //Crear el nuevo producto y guardarlo en la base de datos
+      const nuevoProducto = new ProductosSchema({
+        nombreProducto,
+        imgProducto,
+        descripcion,
         precio,
-    });
+      });
+      await nuevoProducto.save();
 
-    // Guardar el nuevo documento de repartidor en la base de datos
-    await nuevoProductos.save();
+      //Agregar el ID del nuevo producto a la lista de productos de la categoría jajaqloco
+      categoria.productos.push(nuevoProducto._id);
+      await categoria.save();
 
-    res.status(201).redirect('http://127.0.0.1:5500/public/categorias.html');
-
+      res.send("Producto registrado exitosamente");
+    } else {
+      res.status(404).send("No se encontró la categoría");
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error al agregar repartidor");
+    res.status(500).send("Error al registrar producto");
   }
 };
-
-export { agregarProductos };
 
 
 
@@ -40,3 +49,31 @@ const obtenerProductos = async (req: Request, res: Response) => {
 };
 
 export { obtenerProductos };
+
+
+export const eliminarProducto = async (req: Request, res: Response) => {
+  const _id = req.params.id;
+  try {
+    const productoEliminado = await Productos.findByIdAndDelete(_id);
+    if (!productoEliminado) {
+      return res.status(404).json({ message: 'Producto no encontrado' });
+    }
+
+    //Obtener la categoría que contiene el producto
+    const categoria = await CategoriasSchema.findOne({ productos: _id });
+    if (!categoria) {
+      return res.status(404).json({ message: 'Categoría no encontrada' });
+    }
+
+    //Eliminar el ID del producto de la lista de productos en la categoría
+    categoria.productos = categoria.productos.filter(p => p.toString() !== _id);
+
+    //Guardar la categoría actualizada en la base de datos jijiji
+    await categoria.save();
+
+    res.status(200).json({ message: 'Producto eliminado correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Hubo un error al eliminar el producto', error });
+  }
+};
