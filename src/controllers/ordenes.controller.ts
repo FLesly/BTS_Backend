@@ -37,3 +37,19 @@ export const getOrden = (req: Request, res: Response) => {
 		})
 		.catch((error) => console.error(error));
 };
+
+export const putOrden = (req: Request, res: Response) => {
+  OrdenesSchema.updateOne({_id: req.params.id},
+    {
+      $set: { 
+          estadoOrden: req.body.estadoOrden 
+      }
+    }
+  ).then(result => {
+    res.send({message: 'agregado', result});
+    res.end();
+  }).catch(error => {
+    res.send({message: 'Ocurrio un error', error});
+    res.end();
+  })
+};
