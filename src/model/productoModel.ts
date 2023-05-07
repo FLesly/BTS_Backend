@@ -6,6 +6,7 @@ export interface Productos extends Document {
     imgProducto: string;
     descripcion: string;
     precio: number;
+    cantidad: number;
   }
 
 const ProductosSchema = new mongoose.Schema<Productos>({
@@ -14,6 +15,7 @@ const ProductosSchema = new mongoose.Schema<Productos>({
     imgProducto: { type: String, required: true },
     descripcion: { type: String, required: true },
     precio: { type: Number, required: true },
+    cantidad:{ type: Number, required: true },
   
   });
 

@@ -1,6 +1,5 @@
 import mongoose  from "mongoose";
-import {  OrdenesPendientes, productos } from "./ordenes.model";
-import { Productos } from "./productoModel";
+import {  OrdenesPendientes } from "./ordenes.model";
 
 const schema = new mongoose.Schema<OrdenesPendientes>({
     //_id: mongoose.Types.ObjectId,
@@ -8,7 +7,7 @@ const schema = new mongoose.Schema<OrdenesPendientes>({
     direccion : String,
     montoPagar: Number,
     estadoOrden: String,
-    productos: Array<productos>,
+    productos: Array<object>,
  
 });
 

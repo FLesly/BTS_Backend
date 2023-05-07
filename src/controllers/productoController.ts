@@ -77,3 +77,29 @@ export const eliminarProducto = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Hubo un error al eliminar el producto', error });
   }
 };
+
+export const putProducto = (req: Request, res: Response) => {
+   ProductosSchema.updateOne({_id: req.params.id},
+    {
+      $set: { 
+          cantidad: req.body.cantidad 
+      }
+    }
+  ).then(result => {
+    res.send({message: 'agregado', result});
+    res.end();
+  }).catch(error => {
+    res.send({message: 'Ocurrio un error', error});
+    res.end();
+  })
+};
+
+export const obtenerProducto = async (req: Request, res: Response) => {
+  try {
+    const productos = await Productos.find({_id: req.params.id});
+    res.json(productos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al obtener los repartidores');
+  }
+};
